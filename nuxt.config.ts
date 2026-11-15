@@ -75,6 +75,15 @@ export default defineNuxtConfig({
     '/api/**': { headers: { ...securityHeaders, 'Cache-Control': 'no-store' } }
   },
 
+  nitro: {
+    externals: {
+      // sanitize-html (CommonJS) fait require() de htmlparser2 et de ses dépendances, publiées en ES Module
+      // uniquement. Le Node des fonctions Netlify refuse ce require() (ERR_REQUIRE_ESM) : on les intègre
+      // au bundle serveur, où l'outil de build convertit ces require() en imports compatibles.
+      inline: ['sanitize-html', 'htmlparser2', 'domhandler', 'domutils', 'dom-serializer', 'entities', 'domelementtype']
+    }
+  },
+
   typescript: {
     strict: true
   }
