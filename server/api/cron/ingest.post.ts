@@ -2,7 +2,9 @@ import { timingSafeEqual } from 'node:crypto'
 
 // Appelée par la Scheduled Function Netlify (netlify/functions/ingest-cron.mts) avec un jeton secret.
 export default defineEventHandler(async (event) => {
-  const { cronSecret } = useRuntimeConfig()
+  // Lecture brute de la variable d'environnement : runtimeConfig convertit les valeurs qui ressemblent
+  // à des nombres (ex. un secret hexadécimal "8e12…"), ce qui fausserait la comparaison.
+  const cronSecret = process.env.NUXT_CRON_SECRET ?? String(useRuntimeConfig().cronSecret ?? '')
   const provided = (getHeader(event, 'authorization') ?? '').replace(/^Bearer\s+/i, '')
   const expected = Buffer.from(cronSecret)
   const received = Buffer.from(provided)
