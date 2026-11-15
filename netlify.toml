@@ -1,0 +1,6 @@
+# Netlify détecte Nuxt et applique le preset Nitro "netlify" (SSR dans une fonction serverless).
+[build]
+  command = "npm run build"
+
+[build.environment]
+  NODE_VERSION = "22"

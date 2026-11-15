@@ -1,0 +1,12 @@
+rules_version = '2';
+
+// Aucun accès direct depuis le navigateur : toutes les lectures/écritures passent par les routes
+// serveur Nuxt (SDK Admin, qui ignore ces règles). Les données publiques sont servies par /api/articles.
+// => impossible de lire la liste des destinataires ou d'écrire un article avec la config web publique.
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

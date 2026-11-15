@@ -1,0 +1,32 @@
+# Nuxt
+.output
+.data
+.nuxt
+.nitro
+.cache
+dist
+
+# Dépendances
+node_modules
+
+# Logs
+logs
+*.log
+
+# Divers
+.DS_Store
+.fleet
+.idea
+.vscode/*
+!.vscode/extensions.json
+
+# Secrets — ne jamais versionner
+.env
+.env.*
+!.env.example
+service-account*.json
+*-firebase-adminsdk-*.json
+.firebaserc
+
+# Netlify
+.netlify
